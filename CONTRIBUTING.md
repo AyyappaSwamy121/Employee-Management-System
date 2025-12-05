@@ -1,5 +1,5 @@
 \CONTRIBUTING.md
-# Contributing to Leave Management System
+# Contributing to Employee Management System
 
 Thank you for considering contributing to this project!
 
