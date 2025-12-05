@@ -7,6 +7,10 @@ import sys
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'employee_management_system.settings')
+    # Ensure the project directory is on sys.path so Python can import the project packages
+    project_dir = os.path.dirname(__file__)
+    if project_dir not in sys.path:
+        sys.path.insert(0, project_dir)
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
