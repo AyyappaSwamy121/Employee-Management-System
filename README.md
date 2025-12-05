@@ -1,6 +1,6 @@
 # Employee Management System
 
-A comprehensive Django-based leave management system for organizations to manage employee leave requests, track attendance, and handle administrative tasks.
+A comprehensive Django-based Employee management system for organizations to manage employee leave requests, track attendance, and handle administrative tasks.
 
 ## 🚀 Features
 
@@ -134,9 +134,9 @@ EMAIL_HOST_PASSWORD=your-app-password
 ## 📁 Project Structure
 
 ```
-leave_management2/
-├── leave_management2/          # Django settings
-├── leave2/                     # Main application
+employee_management_system/
+├── employee_management_system/          # Django settings
+├── EMS/                     # Main application
 │   ├── models.py              # Database models
 │   ├── views.py               # View functions
 │   ├── templates/             # HTML templates

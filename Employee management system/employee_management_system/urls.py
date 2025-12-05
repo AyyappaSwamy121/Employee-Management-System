@@ -1,5 +1,5 @@
 """
-URL configuration for leave_management2 project.
+URL configuration for employee_management_system project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -17,11 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 from django.conf.urls.static import static
-from leave_management2 import settings
+from employee_management_system import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('leave2.urls')),
+    path('',include('EMS.urls')),
 ] 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

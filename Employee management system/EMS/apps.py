@@ -3,4 +3,6 @@ from django.apps import AppConfig
 
 class Leave2Config(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'leave2'
+    name = 'EMS'
+    # Preserve original migration/app label so existing migrations continue to work
+    label = 'leave2'
