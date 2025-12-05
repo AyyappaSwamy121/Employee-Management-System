@@ -1,4 +1,4 @@
-# Leave Management System 2
+# Employee Management System
 
 A comprehensive Django-based leave management system for organizations to manage employee leave requests, track attendance, and handle administrative tasks.
 
