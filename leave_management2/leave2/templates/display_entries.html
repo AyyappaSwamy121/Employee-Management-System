@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Entries</title>
+    <style>
+
+.month-picker {
+    appearance: none; /* Remove default appearance */
+    -webkit-appearance: none; /* Safari and Chrome */
+    -moz-appearance: none; /* Firefox */
+    border: 1px solid #ccc; /* Add border */
+    padding: 8px; /* Add padding */
+    border-radius: 4px; /* Add border radius */
+    font-size: 14px; /* Adjust font size */
+    outline: none; /* Remove outline */
+    /* Customize colors */
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Add styles for when the input is focused */
+.month-picker:focus {
+    border-color: #007bff; /* Change border color when focused */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add box shadow when focused */
+}
+
+/* Add styles for when the input is hovered */
+.month-picker:hover {
+    border-color: #999; /* Change border color when hovered */
+}
+
+    </style>
+</head>
+<body>
+
+    
+    <div class="main-content container-fluid">
+        <section class="section ">
+            <div class="row justify-content-center">
+                <div class="col-xl-12 col-lg-12">
+                    <div class="card shadow-lg">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4">Employee History</h2>
+                             
+    <form method="post">
+        {% csrf_token %}
+        <label for="selectedMonth"><b>Select Month:</b></label>
+        <input type="month" id="selectedMonth" name="selectedMonth" class="month-picker">
+        <button type="submit" class="btn btn-success me-1 mb-1">Submit</button>
+    </form>
+    <div class="table-responsive">
+    <table class='table' id="table1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Date</th>
+                
+                <th>Clocked-In Time</th>
+                <th>Clocked-Out Time</th>
+                <th>Work_hours</th>
+                <th>Break_Time</th>
+                
+                <th>Break_Hours</th>
+                <th>clock_Hours</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+             {% for q in task %}
+                <tr>
+                  
+                    <td>{{ q.id }}</td>
+                    <td>{{ q.first_name}} {{ q.middle_name}} </td>
+                   
+                {% for x in clock %}  
+            
+                    <td>{{x.date}}</td>
+                    <td>{{ x.clockin_time|time:"H:i:s" }}</td>
+                    <td>{{ x.clockout_time|time:"H:i:s" }}</td>
+                    <td>{{ x.work_time|time:"H:i:s" }}</td>
+                    <td>{{ x.break_time|time:"H:i:s" }}</td>
+                
+                   
+    
+                    <td>
+                        
+                        {% for y in time_entries %}
+                        {%if  x.date == y.date_field %}
+                            {% if y.Break_in is None%}
+                            {% else %}
+                                {{ y.Break_in|time:"H:i:s" }} - {{ y.Break_out|time:"H:i:s" }}<br>
+                         {% endif %}    
+                         {% endif %}    
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for y in time_entries %}
+                        {%if  x.date == y.date_field %}  
+                                {{ y.clockin_time1|time:"H:i:s" }} - {{ y.clockin_time2|time:"H:i:s" }}<br>
+                         {% endif %}    
+                        {% endfor %}
+                    </td>
+                    {% for q in task %} 
+                    <tr>
+                    <td>{{ q.id }}</td>
+                    <td>{{ q.first_name}} {{ q.middle_name}} </td>
+                    
+                    {% endfor %}
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>                      
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+</body>
+</html>
+{% endblock %}
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Entries</title>
+    <style>
+
+.month-picker {
+    appearance: none; /* Remove default appearance */
+    -webkit-appearance: none; /* Safari and Chrome */
+    -moz-appearance: none; /* Firefox */
+    border: 1px solid #ccc; /* Add border */
+    padding: 8px; /* Add padding */
+    border-radius: 4px; /* Add border radius */
+    font-size: 14px; /* Adjust font size */
+    outline: none; /* Remove outline */
+    /* Customize colors */
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+/* Add styles for when the input is focused */
+.month-picker:focus {
+    border-color: #007bff; /* Change border color when focused */
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); /* Add box shadow when focused */
+}
+
+/* Add styles for when the input is hovered */
+.month-picker:hover {
+    border-color: #999; /* Change border color when hovered */
+}
+
+    </style>
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <label for="selectedMonth">Select Month:</label>
+        <input type="month" id="selectedMonth" name="selectedMonth" class="month-picker">
+        <button type="submit" class="btn btn-success me-1 mb-1">Submit</button>
+    </form>
+
+    <table class='table' id="table1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date</th>
+                <th>Name</th>
+                <th>Clocked-In Time</th>
+                <th>Clocked-Out Time</th>
+                <th>Work_hours</th>
+                <th>Break_Time</th>
+                
+                <th>Break_Hours</th>
+                <th>clock_Hours</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for x in task %}
+                <tr>
+                    <td>{{ x.id }}</td>
+                    <td>
+                        {% for y in time_entries %}
+                            
+                                {{ y.date}}
+                             
+                        {% endfor %}
+                    </td>
+                    <td>{{ x.first_name }}</td>
+                    <td>{{ x.clockin_time }}</td>
+                    <td>{{ x.clockout_time }}</td>
+                    <td>{{ x.work_hours|time:"H:i:s" }}</td>
+                    <td>{{ x.break_time|time:"H:i:s" }}</td>
+                    
+                   
+    
+                    <td>
+                        {% for y in time_entries %}
+                            
+                                {{ y.Break_in|time:"H:i:s" }} - {{ y.Break_out|time:"H:i:s" }}<br>
+                             
+                        {% endfor %}
+                    </td>
+                    <td>
+                        {% for y in time_entries %}
+                            
+                                {{ y.clockin_time1|time:"H:i:s" }} - {{ y.clockin_time2|time:"H:i:s" }}<br>
+                             
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+
+
+</body>
+</html> -->

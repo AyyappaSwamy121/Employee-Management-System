@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Leave Type</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+
+    <link rel="stylesheet" href="assets/vendors/simple-datatables/style.css">
+
+    <script defer src="assets/fontawesome/js/all.min.js"></script>
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+      <style type="text/css">
+        .notif:hover{
+          background-color: rgba(0,0,0,0.1);
+                  }
+      </style>
+</head>
+
+<body>
+    <div id="app">
+        
+            <div class="main-content container-fluid">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Manage Leave Type</h3>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html" class="text-success">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Manage Leave Type</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-body">
+                            <table class='table' id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>Leave Name</th>
+                                        <th>Description</th>
+                                        <th>Creation Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in task %}
+                                    <tr>
+                                        <td>{{x.leave}}</td>
+                                        <td>{{x.Description}}</td>
+                                        <td>{{x.date}}</td>
+                                        <td><a href="{% url 'update_leave' pk=x.id%}"><i class="fa fa-pen text-success"></i></a>
+                                            <a href="{% url 'delete_leave' pk=x.id%}"><i class="fa fa-trash text-danger"></i></a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+    <script src="assets/js/feather-icons/feather.min.js"></script>
+    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/app.js"></script>
+
+    <script src="assets/vendors/simple-datatables/simple-datatables.js"></script>
+    <script src="assets/js/vendors.js"></script>
+
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>
+
+{% endblock %}

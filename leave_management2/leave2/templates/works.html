@@ -1,0 +1,102 @@
+{% extends 'base2.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .strongLabel {
+  font-weight:100 !important;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: black !important;
+  font-size: 18px !important;
+}
+
+    </style>
+    
+
+</head>
+<body>
+    <div class="main-content container-fluid strongLabel">
+        <section class="section">
+            <div class="row mb-2">
+                <h1>Add Your Work</h1>
+                <div class="col-xl-9 col-md-12 mb-40">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="{% url 'tasks' %}" method="post">
+                                {% csrf_token %}
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="timeSlot1" class="form-label strongLabel">09:00-10:00:</label>
+                                        <!-- <input type="text" name="a" class="form-control blue-border" id="timeSlot1"> -->
+                                        <textarea name="a" class="form-control blue-border" id="timeSlot1" rows="3"></textarea required>
+                        
+                                    </div>
+                                    <div class="col">
+                                        <label for="timeSlot2" class="form-label strongLabel">10:00-11:00:</label>
+                                        <!-- <input type="text" name="b" class="form-control blue-border" id="timeSlot2" required> -->
+                                        <textarea name="b" class="form-control blue-border" id="timeSlot2" rows="3"></textarea required>
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="timeSlot1" class="form-label strongLabel">11:00-12:00:</label>
+                                        <textarea name="c" class="form-control blue-border" id="timeSlot1" rows="3"></textarea required>
+                                        <!-- <input type="text" name="c" class="form-control blue-border" id="timeSlot1" required> -->
+                                    </div>
+                                    <div class="col">
+                                        <label for="timeSlot2" class="form-label strongLabel">12:00-01:00:</label>
+                                        <textarea name="d" class="form-control blue-border" id="timeSlot2" rows="3"></textarea required>
+                                        <!-- <input type="text" name="d" class="form-control blue-border" id="timeSlot2" required> -->
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                       
+                                        <label for="timeSlot1" class="form-label strongLabel">01:00-02:00:</label>
+                                        <textarea name="e" class="form-control blue-border" id="timeSlot1" rows="3"></textarea required>
+                                        <!-- <input type="text" name="e" class="form-control blue-border" id="timeSlot1" required> -->
+                                    </div>
+                                    <div class="col">
+                                        <label for="timeSlot2" class="form-label strongLabel">02:00-03:00:</label>
+                                        <textarea name="f" class="form-control blue-border" id="timeSlot2" rows="3"></textarea required>
+                                        <!-- <input type="text" name="f" class="form-control blue-border" id="timeSlot2" required> -->
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col">
+                                        <label for="timeSlot1" id="timeSlot1Label" class="form-label strongLabel">03:00-04:00:</label>
+                                        <textarea name="g" class="form-control blue-border" id="timeSlot1" rows="3"></textarea required>
+                                        <!-- <input type="text" name="g" class="form-control blue-border" id="timeSlot1" required> -->
+                                    </div>
+                                    <div class="col">
+                                        <label for="timeSlot2" class="form-label strongLabel strongLabel">04:00-05:00:</label>
+                                        <textarea name="h" class="form-control blue-border" id="timeSlot2" rows="3"></textarea required>
+                                        <!-- <input type="text" name="h" class="form-control blue-border" id="timeSlot2" required> -->
+                                    </div>
+                                </div>
+                                <div class=" row mb-3">
+                                    <div class="col">
+                                        <label for="timeSlot2" class="form-label strongLabel">05:00-06:00:</label>
+                                        <textarea name="i" class="form-control blue-border" id="timeSlot2" rows="3"></textarea required>
+                                        <!-- <input type="text" name="i" class="form-control blue-border" id="timeSlot2" required> -->
+                                    </div>
+                                    <div class="col">
+                                        <label style="color: white;" for="timeSlot2" class="form-label">05:00-06:00:</label> <br>
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                   </div>
+                                
+                               
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>
+{% endblock %}

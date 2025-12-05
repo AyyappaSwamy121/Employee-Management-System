@@ -1,0 +1,141 @@
+{% extends 'base2.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Application Leave</title>
+    
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    
+      <script defer src="assets/fontawesome/js/all.min.js"></script>
+    <link rel="stylesheet" href="assets/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+    <div id="app">
+            
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Apply for Leave</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html" class="text-success">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Leave Application</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- // Basic multiple Column Form section start -->
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form method="post" action="{% url 'apply' %}" class="form">
+                                {% csrf_token %}
+                                <div class="row">
+                                    
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Select Leave Type</label>
+                                            <div class="position-relative">
+                                                <fieldset class="form-group">
+                                                    <select name="leave_type" class="form-select" id="basicSelect">
+                                                        <option>--Select--</option>
+                                                        {% for x in task2%}
+                                                        
+                                                            <option>{{x.leave}}</option>
+                                                        {% endfor %}
+                                                        
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">From Date</label>
+                                            <div class="position-relative">
+                                                <input type="date" class="form-control" name="start_date"  id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                  
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">To Date</label>
+                                            <div class="position-relative">
+                                                <input type="date" name="end_date" class="form-control"  id="first-name-icon">
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">is it Half day Leave ?</label>
+                                            <div class="position-relative">
+                                                <fieldset class="form-group">
+                                                    <select name="half_day" class="form-select" id="basicSelect">
+                                                        <option>--Select--</option>
+                                                        <option> Yes</option>
+                                                        <option>No</option>
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Date of attending the Office Again</label>
+                                            <div class="position-relative">
+                                                <input type="date" name="joining_date" class="form-control"  id="first-name-icon">
+                                                </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Reason for Leave</label>
+                                            <div class="position-relative">
+                                                <input type="text" name="reason" class="form-control"  id="first-name-icon">
+                                                
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- // Basic multiple Column Form section end -->
+</div>
+
+        </div>
+    </div>
+    <script src="assets/js/feather-icons/feather.min.js"></script>
+    <script src="assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+
+{% load static %}
+
+   <style>
+ .sidebar-wrapper {
+    background-color: rgba(255, 255, 255, 0.5); /* Change the alpha value as needed */
+  }
+  .sidebar
+  {
+   background:transparent;
+   opacity: 0;
+  }
+  .a 
+  {
+    font-size: xx-large !important;
+    color:  black !important;
+  }
+  .chat-logo {
+    position: fixed;
+    
+    right: 20px;
+    bottom: 40px;
+    z-index: 1000; /* Makes sure the logo is above other elements */
+}
+
+.chat-logo a img {
+    width: 80px; /* Set the size of the chat logo */
+    background-color: black;
+    height: auto;
+    border-radius:100px;
+    transition: transform 0.3s ease;
+}
+
+.chat-logo a:hover img {
+    transform: scale(1.1); /* Slightly enlarge logo on hover */
+}
+
+</style>
+<div id="sidebar" class='active'>
+    <div class="sidebar-wrapper active">
+<div class="sidebar-header" style="height: 50px;margin-top: -30px">
+             
+  <img src="{% static 'assets/images/logo2.jpg' %}" alt="" srcset="">
+  <span class="a"> APT</span>
+              
+        </div>
+       <div class="sidebar-menu">
+          <ul class="menu">
+             <li class="sidebar-item ">
+                <a href="{% url 'employee' %}" class='sidebar-link'>
+                <i class="fa fa-home text-success"></i>
+                <span>Dashboard</span>
+                </a>
+             </li>
+             <li class="sidebar-item ">
+                <a href="{% url 'apply_leave' %}" class='sidebar-link'>
+                <i class="fa fa-plane text-danger"></i>
+                <span>Apply Leave</span>
+                </a>
+             </li>
+             <li class="sidebar-item ">
+                <a href="{% url 'show_leave_status' %}" class='sidebar-link'>
+                <i class="fa fa-plane text-info"></i>
+                <span>Leave Status</span>
+                </a>
+             </li>
+             <li class="sidebar-item ">
+               <a href="{% url 'clock' %}" class='sidebar-link'>
+               <i class="fa fa-user text-success"></i>
+                     <span>Login</span>
+               </a>
+              </li>
+             <li class="sidebar-item ">
+               <a href="{% url 'works' %}" class='sidebar-link'>
+               <i class="fa fa-check text-success"></i>
+                     <span>Daily Plans </span>
+               </a>
+            </li>
+            
+             <li class="sidebar-item ">
+               <a href="{% url 'show_tasks' %}" class='sidebar-link'>
+               <i class="fa fa-check text-success"></i>
+                     <span>Daily Works </span>
+               </a>
+            </li>
+             <li class="sidebar-item ">
+               <a href="{% url 'leave_history' %}" class='sidebar-link'>
+               <i class="fa fa-user-cog text-success"></i>
+                     <span>Leave History</span>
+               </a>
+            </li>
+          </ul>
+          <div class="chat-logo">
+            <a href="http://127.0.0.1:8001/"> <!-- Django URL name for your chat view -->
+                <img src="{% static 'assets/images/chat.jpeg' %}" alt="Chat">
+            </a>
+        </div>
+
+</div>
+<button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+</div>
+</div>
+<div id="main">
+    <nav class="navbar navbar-header navbar-expand navbar-light">
+        <a class="sidebar-toggler" href="#"><span class="navbar-toggler-icon"></span></a>
+        <button class="btn navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav d-flex align-items-center navbar-light ms-auto">
+              
+             <li class="dropdown">
+                <a href="#" data-bs-toggle="dropdown"
+                   class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                   <div class="avatar me-1">
+                      <img src="{{ task.profile_pic.url }}" alt="asdf" srcset="">
+                   </div>
+                   <div class="d-none d-md-block d-lg-inline-block">Hi, <strong style="color: green;">{{task.first_name}} {{task.middle_name}} {{task.last_name}} </strong></div>
+                </a> 
+                <div class="dropdown-menu dropdown-menu-end shadow-lg" style="border-radius: 0.5rem;">
+                  <a class="dropdown-item d-flex align-items-center" href="{% url 'update_profile' %}">
+                      <i data-feather="user" class="me-2"></i> Change Profile
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="{% url 'update_password' %}">
+                      <i data-feather="user" class="me-2"></i> Change Password
+                  </a>
+                  <!-- <a class="dropdown-item d-flex align-items-center" href="update.html">
+                      <i data-feather="user" class="me-2"></i> Account
+                  </a>
+                  <a class="dropdown-item d-flex align-items-center" href="update_password.html">
+                      <i data-feather="settings" class="me-2"></i> Settings
+                  </a> -->
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item text-danger d-flex align-items-center" href="{% url 'index' %}">
+                      <i data-feather="log-out" class="me-2"></i> Logout
+                  </a>
+              </div>
+              
+             </li>
+          </ul>
+        </div>
+    </nav>

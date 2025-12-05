@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Add this style block */
+        input:focus {
+            border-color: skyblue;
+            /* Optional: if you want the border to be a bit thicker when focused */
+            border-width: 2px;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static }">
+    
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.css' %}">
+    <script src="{% static 'assets/fontawesome/js/all.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'assets/vendors/chartjs/Chart.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendors/perfect-scrollbar/perfect-scrollbar.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/app.css' %}">
+    
+    <link rel="stylesheet" href="{% static 'assets/vendors/simple-datatables/style.css' %}">
+    <script src="{% static 'assets/vendors/simple-datatables/simple-datatables.js' %}"></script>
+    
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    {% block content %}
+    {% endblock %}
+    
+    <script src="{% static 'assets/js/feather-icons/feather.min.js' %}"></script>
+     
+      <script src="{% static 'assets/vendors/perfect-scrollbar/perfect-scrollbar.min.js'%}"></script>
+      <!-- <script src="assets/js/app.js"></script> -->
+      <script src="{% static 'assets/js/app.js' %}"></script>
+      <!-- <script src="assets/vendors/chartjs/Chart.min.js"></script> -->
+      <script src="{% static 'assets/vendors/chartjs/Chart.min.js' %}"></script>
+      <!-- <script src="assets/vendors/apexcharts/apexcharts.min.js"></script> -->
+      <script src="{% static 'assets/vendors/apexcharts/apexcharts.min.js' %}"></script>
+      <!-- <script src="assets/js/pages/dashboard.js"></script> -->
+      <script src="{% static 'assets/js/pages/dashboard.js' %}"></script>
+      <!-- <script src="assets/js/main.js"></script> -->
+      <script src="{% static 'assets/js/vendors.js' %}"></script>
+      <script src="{% static 'assets/js/main.js' %}"></script>
+      <script src="{% static 'assets/js/chart.js' %}"></script>
+      <script src="{% static 'assets/vendors/simple-datatables/simple-datatables.js' %}"></script>
+   
+</body>
+</html>

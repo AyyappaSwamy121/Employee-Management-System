@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="app">
+
+            <div class="main-content container-fluid">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Employee Status</h3>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="index.html" class="text-success">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Approved</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class='table' id="table1">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Clocked-In Time</th>
+                                        <th>Clocked-Out Time</th>
+                                        <th>Status</th>
+                                    </tr>
+                                        
+                                        
+                                </thead>
+                                <tbody>
+                                    {% for x in task %}
+                                        <tr>
+                                            <td>{{ x.id }}</td>
+                                            <td>{{ x.first_name }} {{ x.middle_name }} {{ x.last_name }}</td>
+                                            {% for z in task3 %}
+                                                {% if z.email == x.email%}
+                                                <td>{{ z.clockin_time }}</td>
+                                                <td>{{ z.clockout_time }}</td>
+                                                {% endif %}
+                                            {%endfor%}
+                                            
+                                            {% if x.work_status == 0 %}
+                                                <td><span class="badge bg-orange">NO</span></td>
+                                            {% elif x.work_status == 1 %}
+                                                <td><span class="badge bg-success">Clocked-In</span></td>
+                                            {% elif x.work_status == 3 %}
+                                                <td><span class="badge bg-danger">Clocked-Out</span></td>
+                                            {% endif %}
+                            
+                                          
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                          </div>  
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+<!-- <div id="app">
+
+    <div class="main-content container-fluid">
+        <div class="page-title">
+            <div class="row">
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                    <h3>Employee Status</h3>
+                </div>
+                <div class="col-12 col-md-6 order-md-2 order-first">
+                    <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html" class="text-success">Dashboard</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Approved</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <section class="section">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                    <table class='table' id="table1">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Clocked-In Time</th>
+                                <th>Clocked-Out Time</th>
+                                <th>Work_hours</th>
+                                <th>Break_Time</th>
+                                <th>Status</th>
+                                <th>Break_Hours</th>
+                                <th>clock_Hours</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for x in task %}
+                                <tr>
+                                    <td>{{ x.id }}</td>
+                                    <td>{{ x.first_name }}</td>
+                                    {% for z in task3 %}
+                                        <td>{{ z.clockin_time }}</td>
+                                        <td>{{ z.clockout_time }}</td>
+                                        <td>{{ z.work_hours|time:"H:i:s" }}</td>
+                                        <td>{{ z.break_time|time:"H:i:s" }}</td>
+                                    {%endfor%}
+                                    
+                                    {% if x.work_status == 0 %}
+                                        <td><span class="badge bg-orange">NO</span></td>
+                                    {% elif x.work_status == 1 %}
+                                        <td><span class="badge bg-success">Clocked-In</span></td>
+                                    {% elif x.work_status == 3 %}
+                                        <td><span class="badge bg-danger">Clocked-Out</span></td>
+                                    {% endif %}
+                    
+                                    <td>
+                                        {% for y in task2 %}
+                                            {% if y.email == x.email %}
+                                            
+                                                {{ y.Break_in|time:"H:i:s" }} - {{ y.Break_out|time:"H:i:s" }}<br>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        {% for y in task2 %}
+                                            {% if y.email == x.email %}
+                                            
+                                                {{ y.clockin_time1|time:"H:i:s" }} - {{ y.clockin_time2|time:"H:i:s" }}<br>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                  </div>  
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>
+</div> -->

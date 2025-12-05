@@ -1,0 +1,212 @@
+{% extends 'base2.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock-in/Clock-out System</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 5rem;
+        }
+        .container {
+            max-width: 600px;
+        }
+        .timer-display {
+            font-size: 2rem;
+            margin: 20px 0;
+        }
+        .btn-custom {
+            margin: 5px;
+        }
+        .info-text {
+            margin: 20px 0;
+            font-size: 1.2rem;
+        }
+        .card-custom {
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            border: none;
+        }
+        .card-custom:hover {
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card card-custom">
+        <h5 class="card-header bg-info text-white">Clock-in/Clock-out System</h5>
+        <div class="card-body">
+            <div id="breakInfo" class="hidden">
+                
+            </div>
+            <form id="timeForm2" method="post" action="{% url 'save_time2'  %}">
+                {% csrf_token %}
+                <input type="button" id="clockInBtn" onclick="startTimerAndSubmit('clockIn')" class="btn btn-success btn-custom" value="Clock-In">
+            </form>
+
+            <button id="breakBtn" onclick="startTimer('break')" class="disabled btn btn-warning btn-custom">
+                <i class="fas fa-pause">
+                    
+                </i> Break
+            </button>
+
+            <button id="continueBtn" class="hidden btn btn-warning btn-custom" onclick="continueWork()">
+                <i class="fas fa-play"></i> Continue
+            </button>
+
+            <button id="clockOutBtn" onclick="stopTimer()" class="btn btn-danger btn-custom">Clock-Out</button>
+
+            <div id="timer" class="hidden timer-display">00:00:00</div>
+            <div id="breakTime" class="hidden info-text">Total Break Time: 00:00:00
+                {% for x in task2 %}
+                    <p>{{ x.Break_in }}-{{x.Break_out}}</p>
+                    
+                {% endfor %}
+            </div>
+            
+            <div id="clockInTime" class="hidden info-text">Total Clock-In Time: 00:00:00</div>
+
+            <form id="timeForm" method="post" action="{% url 'save_time' %}">
+                {% csrf_token %}
+                <input type="hidden" id="clockInTimeInput" name="clock_in_time" value="">
+                <input type="hidden" id="breakTimeInput" name="break_time" value="">
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    let timerInterval;
+    let clockInTime = 0;
+    let breakTime = 0;
+    let clockInPaused = false;
+
+    function startTimerAndSubmit(timerType) {
+        startTimer(timerType); // Start the timer
+        document.getElementById('timeForm2').submit(); // Submit the form
+    }
+
+    function startTimer(timerType) {
+        
+        if (timerType === 'clockIn') {
+            document.getElementById('clockInBtn').style.display = 'none';
+            document.getElementById('breakBtn').style.display = 'inline-block'; // Show break button when clocking in
+            document.getElementById('timer').classList.remove('hidden');
+            document.getElementById('breakBtn').classList.remove('disabled');
+            timerInterval = setInterval(updateTimer, 1000);
+            saveTimeToDatabase('clockIn');
+        } else if (timerType === 'break') {
+            document.getElementById('breakBtn').style.display = 'none';
+            document.getElementById('continueBtn').classList.remove('hidden');
+            document.getElementById('timer').classList.remove('hidden');
+            document.getElementById('breakTime').classList.remove('hidden');
+            document.getElementById('breakInfo').classList.remove('hidden'); // Show break info
+            clearInterval(timerInterval);
+            timerInterval = setInterval(updateTimer, 1000);
+            clockInPaused = true;
+            
+            saveTimeToDatabase('break');
+        }
+    }
+
+    function continueWork() {
+        document.getElementById('breakBtn').style.display = 'inline-block';
+        document.getElementById('continueBtn').classList.add('hidden');
+        clockInPaused = false;
+        clearInterval(timerInterval);
+        timerInterval = setInterval(updateTimer, 1000);
+        saveTimeToDatabase('continue'); // Send AJAX request to save continue time
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+        document.getElementById('clockInTime').classList.remove('hidden');
+        document.getElementById('breakBtn').style.display = 'none'; // Hide the break button
+        const clockInTimeDisplay = formatTime(clockInTime);
+        document.getElementById('clockInTime').textContent = `Total Clock-In Time: ${clockInTimeDisplay}`;
+
+        // Update hidden input fields with total clock time and break time
+        document.getElementById('clockInTimeInput').value = formatTime(clockInTime);
+        document.getElementById('breakTimeInput').value = formatTime(breakTime);
+
+        // Submit the form to save the time data
+        document.getElementById('timeForm').submit();
+        saveTimeToDatabase('clockOut'); 
+    }
+
+    function saveTimeToDatabase(timeType) {
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        jQuery.ajax({
+            url: '{% url "save_time_to_database" %}',
+            type: 'POST',
+            headers: {
+                'X-CSRFToken': csrftoken
+            },
+            data: {
+                'timeType': timeType
+            },
+            success: function(response) {
+                console.log('Time saved successfully');
+                // Redirect to a new page after successful AJAX call
+                
+            },
+            error: function(xhr, status, error) {
+                console.error('Error saving time:', error);
+            }
+        });
+    }
+
+    function updateTimer() {
+        if (!clockInPaused) {
+            clockInTime++;
+        } else {
+            breakTime++;
+        }
+
+        const timerDisplay = formatTime(clockInTime);
+        const breakTimeDisplay = formatTime(breakTime);
+        document.getElementById('timer').textContent = `Clock-In Timer: ${timerDisplay}`;
+        document.getElementById('breakTime').textContent = `Total Break Time: ${breakTimeDisplay}`;
+    }
+
+    function formatTime(time) {
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor((time % 3600) / 60);
+        const seconds = time % 60;
+
+        // Ensure hours, minutes, and seconds are always two digits
+        const formattedHours = hours < 10 ? '0' + hours : hours;
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+        const formattedSeconds = seconds < 10 ? '0' + seconds : seconds;
+
+        return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    }
+
+    window.onload = function() {
+        // Get the value of the 'timer' parameter from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const timerParam = urlParams.get('timer');
+
+        // If the 'timer' parameter is 'clockIn', start the clock-in timer
+        if (timerParam === 'clockIn') {
+            startTimer('clockIn');
+        }
+    };
+</script>
+
+</body>
+</html>
+{% endblock %}

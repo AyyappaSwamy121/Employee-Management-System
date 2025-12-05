@@ -1,0 +1,7 @@
+
+/* Add this style block */
+input:focus {
+    border-color: skyblue;
+    /* Optional: if you want the border to be a bit thicker when focused */
+    border-width: 2px;
+}

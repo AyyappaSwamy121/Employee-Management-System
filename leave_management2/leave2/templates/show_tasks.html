@@ -1,0 +1,81 @@
+{% extends 'base2.html' %}
+{% block content %}
+<head>
+    <style>
+        .strongLabel {
+  font-weight: bold !important;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: black !important;
+  font-size: 15px !important;
+}
+
+    </style>
+</head>
+    <div id="app">
+       
+
+            <div class="main-content container-fluid">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-12 col-md-6 order-md-1 order-last">
+                            <h3>Works</h3>
+                        </div>
+                        <div class="col-12 col-md-6 order-md-2 order-first">
+                            <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="{% url 'user_dashboard' %}" class="text-success">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Employee works</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <section class="section">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                            <table class='table' id="table1">
+                                <thead>
+                                    <tr class="strongLabel">
+                                       
+                                        <th>Date</th>
+                                        <th class="strongLabel">09:10</th>
+                                        <th class="strongLabel">10:11</th>
+                                        <th class="strongLabel">11:12</th>
+                                        <th class="strongLabel">12:01</th>
+                                        <th class="strongLabel">01:02</th>
+                                        <th class="strongLabel">02:03</th>
+                                        <th class="strongLabel">03:04</th>
+                                        <th class="strongLabel">04:05</th>
+                                        <th class="strongLabel">05:06</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for x in task2 %}
+                                        <tr>
+                                          
+                                           
+                                            <td>{{x.date}}</td>
+                                            <td>{{x.a}}</td>
+                                            <td>{{x.b}}</td>
+                                            <td>{{x.c}}</td>
+                                            <td>{{x.d}}</td>
+                                            <td>{{x.e}}</td>
+                                            <td>{{x.f}}</td>
+                                            <td>{{x.g}}</td>
+                                            <td>{{x.h}}</td>
+                                            <td>{{x.i}}</td>
+                                          
+                                         </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+{% endblock %}

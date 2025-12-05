@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-md-6 order-md-1 order-last">
+                <h3>Employee History</h3>
+            </div>
+        </div>
+    </div>
+
+    <section class="section pt-5">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Employee List</h2>
+                        <table class="table table-striped" id="employeeTable">
+                            <thead>
+                                <tr>
+                                    <th>Profile</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for x in task3 %}
+                                <tr>
+                                    <td>
+                                        <a href="#" data-toggle="popover" data-content="<img src='{{ x.profile_pic.url }}' alt='profile picture' style='width: 150px; height: auto;'>">
+                                            <img src="{{ x.profile_pic.url }}" alt="profile picture" class="rounded-circle" style="width: 50px; height: 50px;">
+                                        </a>
+                                    </td>
+                                    <td>{{ x.first_name }} {{ x.middle_name }} {{ x.last_name }}</td>
+                                    <td>
+                                        <a href="{% url 'history' x.email %}" class="btn btn-info">View History</a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include DataTables JS and CSS -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+
+<!-- Initialize popovers and DataTables -->
+<script>
+    $(document).ready(function(){
+        $('[data-toggle="popover"]').popover({
+            html: true,
+            trigger: 'hover',
+            placement: 'bottom' // Adjust the placement as needed
+        });
+
+        $('#employeeTable').DataTable({
+            // Optional: add DataTables options here
+        });
+    });
+</script>
+{% endblock %}
+
+
+<!-- 
+            
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Employee history</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'admin_dashboard'%}" class="text-success">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Employee history</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+
+    
+    <div class="main-content container-fluid">
+        <section class="section pt-5">
+            <div class="row justify-content-center">
+                <div class="col-xl-8 col-lg-10">
+                    <div class="card shadow-lg">
+                        <div class="card-body">
+                            <h2 class="card-title text-center mb-4"></h2>
+                            <div class="row">
+                                {% for x in task3 %}
+                                <div style="display: flex; align-items: center;">
+                                    <img src="{{ x.profile_pic.url }}" alt="profile picture" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 10px;">
+                                    <a class="dropdown-item" href="{% url 'history' x.email %}">{{ x.first_name }} {{ x.middle_name }} {{ x.last_name }}</a>
+                                    <br> <br>
+                                </div>
+                            {% endfor %}
+                            </div>
+                            
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+ -->
+

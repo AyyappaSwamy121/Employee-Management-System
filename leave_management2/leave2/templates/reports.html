@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+    <!-- Basic Vertical form layout section start -->
+    <section id="basic-vertical-layouts">
+    <div class="row match-height">
+        <div class="col-md-12 col-12">
+        
+            
+                
+                <div class="">
+                    <div class="row">
+                    <div class="col-11">
+              
+                  <div class="chart chart-lg">
+                    <canvas id="chartjs-pie"></canvas>
+                  </div>
+                </div>
+                    </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    </section>
+    <!-- // Basic Vertical form layout section end -->
+</div>
+        </div>
+    </div>
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Pie chart
+      new Chart(document.getElementById("chartjs-pie"), {
+        type: "pie",
+        data: {
+          labels: ["approved", "Pending", "Cancelled"],
+          datasets: [{
+            data: [{{approved}}, {{pending}}, {{denied}}],
+            backgroundColor: [
+              window.theme.primary,
+              window.theme.warning,
+              window.theme.danger,
+            ],
+            borderColor: "transparent"
+          }]
+        },
+        options: {
+          maintainAspectRatio: true,
+          legend: {
+            display: true
+          }
+        }
+      });
+    });
+  </script>
+
+{% endblock %}

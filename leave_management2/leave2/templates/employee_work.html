@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="main-content container-fluid">
+        <section class="section">
+           <div class="row mb-2">
+             <div class="col-xl-9 col-md-12 mb-40">
+     <div class="card">
+       <div class="card-body">
+         <div class="d-flex justify-content-between p-md-1">
+           <div class="d-flex flex-row">
+             <div class="align-self-center">
+               <i class="fa form-label text-success fa-3x me-4"></i>
+             </div>
+             <div>
+            <form action="{% url 'show_employee' %}" method="post">
+                {% csrf_token%}
+                <div class="col">
+                    <label for="currentDate" class="form-label">Date:</label>
+                    <input type="date" name="date" class="form-control blue-border" id="currentDate" name="currentDate"> <br> 
+                    <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                    </div>
+            </form>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div> 
+{% endblock %}

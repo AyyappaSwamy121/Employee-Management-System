@@ -1,0 +1,173 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Work Status Update</title>
+  
+<style>
+  header {
+    background-color: #f0f0f0;
+    padding: 10px 0;
+  }
+  
+  .date-box {
+    float: right;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+  }
+  
+  .container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .work-status, .clock-in-out {
+    width: 45%;
+  }
+  
+  .work-status {
+    margin-bottom: 30px;
+  }
+  
+  .clock-in-out {
+    margin-top: 30px;
+  }
+  
+  .btn {
+    margin-right: 10px;
+  }
+  
+  #clock-in-timer, #break-timer, #total-work-timer, #total-break-timer {
+    margin-top: 10px;
+    font-size: 20px;
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="date-box">
+      <span id="current-date"></span>
+    </div>
+  </header>
+
+  <main>
+  
+
+      <div class="clock-in-out">
+        <h2>Clock In / Clock Out</h2>
+        <div id="clock-in-time">Clock In Time: <span id="clock-in-timer">00:00:00</span></div>
+        <button id="clock-in" name="clock-in" class="btn btn-success">Clock In</button>
+        <button id="break" name="break-in" class="btn btn-warning">Break</button>
+        <button id="end-break" name="break-out" class="btn btn-warning">End Break</button>
+        <button id="clock-out" name="clock-out" class="btn btn-danger">Clock Out</button>
+        <div id="break-time">Break Time: <span id="break-timer">00:00:00</span></div>
+        <div id="total-work-time">Total Work Time: <span id="total-work-timer">00:00:00</span></div>
+        <div id="total-break-time">Total Break Time: <span id="total-break-timer">00:00:00</span></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+    // JavaScript for date display
+    const currentDate = new Date().toDateString();
+    document.getElementById('current-date').textContent = currentDate;
+  
+    // Timer variables
+    let clockInTimer;
+    let breakTimer;
+    let clockInStartTime;
+    let breakStartTime;
+    let totalWorkTime = 0;
+    let totalBreakTime = 0;
+    let clockedIn = false;
+    let onBreak = false;
+  
+    // Clock In button click event
+    document.getElementById('clock-in').addEventListener('click', function () {
+      if (!clockedIn) {
+        clockInStartTime = new Date().getTime();
+        clockedIn = true;
+        updateClockInTimer();
+        clockInTimer = setInterval(updateClockInTimer, 1000);
+      }
+    });
+  
+    // Clock Out button click event
+    document.getElementById('clock-out').addEventListener('click', function () {
+      if (clockedIn) {
+        clearInterval(clockInTimer);
+        clockedIn = false;
+        totalWorkTime += new Date().getTime() - clockInStartTime;
+        updateTotalWorkTime();
+        document.getElementById('clock-in-timer').textContent = '00:00:00';
+      }
+    });
+  
+    // Break button click event
+    document.getElementById('break').addEventListener('click', function () {
+      if (clockedIn && !onBreak) {
+        clearInterval(clockInTimer);
+        onBreak = true;
+        breakStartTime = new Date().getTime();
+        updateBreakTimer();
+        breakTimer = setInterval(updateBreakTimer, 1000);
+      }
+    });
+  
+    // End Break button click event
+    document.getElementById('end-break').addEventListener('click', function () {
+      if (onBreak) {
+        clearInterval(breakTimer);
+        onBreak = false;
+        totalBreakTime += new Date().getTime() - breakStartTime;
+        updateTotalBreakTime();
+        updateClockInTimer();
+        clockInTimer = setInterval(updateClockInTimer, 1000);
+      }
+    });
+  
+    // Function to update Clock In timer
+    function updateClockInTimer() {
+      const currentTime = new Date().getTime();
+      const duration = (currentTime - clockInStartTime) / 1000;
+      const formattedDuration = formatTime(duration);
+      document.getElementById('clock-in-timer').textContent = formattedDuration;
+    }
+  
+    // Function to update Break timer
+    function updateBreakTimer() {
+      const currentTime = new Date().getTime();
+      const duration = (currentTime - breakStartTime) / 1000;
+      const formattedDuration = formatTime(duration);
+      document.getElementById('break-timer').textContent = formattedDuration;
+    }
+  
+    // Function to update total work time
+    function updateTotalWorkTime() {
+      const formattedDuration = formatTime(totalWorkTime / 1000);
+      document.getElementById('total-work-timer').textContent = formattedDuration;
+    }
+  
+    // Function to update total break time
+    function updateTotalBreakTime() {
+      const formattedDuration = formatTime(totalBreakTime / 1000);
+      document.getElementById('total-break-timer').textContent = formattedDuration;
+    }
+  
+    // Function to format time as HH:MM:SS
+    function formatTime(duration) {
+      const hours = Math.floor(duration / 3600);
+      const minutes = Math.floor((duration % 3600) / 60);
+      const seconds = Math.floor(duration % 60);
+      // return ${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds};
+      return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+
+    }
+  });
+  </script>
+</body>
+</html>

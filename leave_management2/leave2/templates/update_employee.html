@@ -1,0 +1,197 @@
+{% extends 'base.html' %}
+{% block content %}
+
+            
+<div class="main-content container-fluid">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Update Employee</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class='breadcrumb-header'>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'admin_dashboard'%}" class="text-success">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Update Employee</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- // Basic multiple Column Form section start -->
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form" method="post" action="" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">ID Number</label>
+                                            <div class="position-relative">
+                                                <input type="number" name="id" value="{{task2.id}}" class="form-control" placeholder="id number" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-hash"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Gender</label>
+                                            <div class="position-relative">
+                                                <fieldset class="form-group">
+                                                    <select name="gender" value="{{task2.gender}}" class="form-select" id="basicSelect">
+                                                        <option>Male</option>
+                                                        <option>Female</option>
+                                                    </select>
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">First Name</label>
+                                            <div class="position-relative">
+                                                <input type="text" name="first_name" value="{{task2.first_name}}" class="form-control" placeholder="first name" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Middle Name</label>
+                                            <div class="position-relative">
+                                                <input type="text"  name="middle_name" value="{{task2.middle_name}}" class="form-control" placeholder="middle name" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><div class="col-md-4 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Last Name</label>
+                                            <div class="position-relative">
+                                                <input type="text"  name="last_name" value="{{task2.last_name}}" class="form-control" placeholder="last name" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Age</label>
+                                            <div class="position-relative">
+                                                <input type="text" name="age" value="{{task2.age}}" class="form-control" placeholder="age" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Email</label>
+                                            <div class="position-relative">
+                                                <input type="text"  name="email" value="{{task2.email}}" class="form-control" placeholder="email" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-envelope"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Contact</label>
+                                            <div class="position-relative">
+                                                <input type="text" value="{{task2.contact}}" class="form-control" placeholder="contact" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-phone"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-3 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Profile</label>
+                                            <div class="position-relative d-flex align-items-start">
+                                                
+                                                <div>
+                                                    <input type="file" name="profile_pic" class="form-control" placeholder="" id="first-name-icon">
+                                                    <div class="form-control-icon">
+                                                        <i class="fa fa-user"></i>
+                                                    </div>
+                                                </div>
+                                    
+                                                <div class="ms-3"> 
+                                                    {% if task2.profile_pic %}
+                                                        <img src="{{ task2.profile_pic.url }}" alt="Profile Picture" style="width: 100px; height: auto;">
+                                                    {% else %}
+                                                        <p>No profile picture uploaded.</p>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> -->
+                                    
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="country-floating">Department</label>
+                                                <fieldset class="form-group">
+                                                    <select name="department" value="{{task2.department}}" class="form-select" id="basicSelect">
+                                                        <option>--Select--</option>
+                                                        {% for x in task3 %}
+                                                            <option>{{x.fullname}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </fieldset>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Username</label>
+                                            <div class="position-relative">
+                                                <input type="text"  name="username" value="{{task2.username}}" class="form-control" placeholder="username" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-user"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group has-icon-left">
+                                            <label for="first-name-icon">Password</label>
+                                            <div class="position-relative">
+                                                <input type="password"  name="password" value="{{task2.password}}" class="form-control" placeholder="passsword" id="first-name-icon">
+                                                <div class="form-control-icon">
+                                                    <i class="fa fa-key"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- // Basic multiple Column Form section end -->
+</div>
+
+
+{% endblock %}

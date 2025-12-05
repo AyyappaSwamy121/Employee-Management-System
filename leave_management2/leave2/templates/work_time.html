@@ -1,0 +1,126 @@
+{% extends 'base2.html' %}
+{% block content %}
+<!-- Make sure your base2.html links to the latest Bootstrap CSS and JS files from GitHub -->
+<style>
+    /* Add this to your CSS file */
+.move-card {
+    transition: transform 0.3s ease-in-out; /* Add a transition for smooth movement */
+}
+
+.move-card:hover {
+    transform: translatey(-10px); /* Move the card 10 pixels to the right on hover */
+}
+
+</style>
+<div class="main-content container-fluid">
+    <section class="section pt-5">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <div class="card shadow-lg ">
+                    <div class="card-body ">
+                        <h2 class="card-title text-center mb-4">Time Management Dashboard</h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-3 d-flex ">
+                                <div class="card flex-fill border border-primary animate__animated animate__bounceInLeft">
+                                    <div class="card-header bg-primary text-white" style="text-align: center;">
+                                        <strong>Work Time</strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-primary">{{ task3.work_time|time:"H:i:s" }}</h5>
+                                        <p class="card-text">Monitor your productivity during your focused work sessions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 d-flex">
+                                <div class="card flex-fill border border-success animate__animated animate__bounceInRight">
+                                    <div class="card-header bg-success text-white" style="text-align: center;">
+                                       <b> Break Time </b>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-success">{{ task3.break_time|time:"H:i:s" }}</h5>
+                                        <p class="card-text">Keep track of your break times to stay refreshed and efficient.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 d-flex">
+                                <div class="card flex-fill border border-warning animate__animated animate__bounceInLeft">
+                                    <div class="card-header bg-warning text-white" style="text-align: center;">
+                                       <b> Break Hours </b>
+                                    </div>
+                                    <div class="card-body">
+                                        {% for x in task2 %}
+                                        {% if x.Break_in is None %}
+                                        {% else %}
+                                            <h5 class="card-title text-warning">{{ x.Break_in|time:"H:i:s" }}-{{ x.Break_out|time:"H:i:s" }}</h5>
+                                            {% endif %}
+                                        {%endfor%}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+
+
+
+
+<!-- 
+<div class="main-content container-fluid">
+    <section class="section pt-5">
+        <div class="row justify-content-center">
+            <div class="col-xl-8 col-lg-10">
+                <div class="card shadow-lg">
+                    <div class="card-body">
+                        <h2 class="card-title text-center mb-4">Time Management Dashboard</h2>
+                        <div class="row">
+                            <div class="col-md-6 mb-3 d-flex">
+                                <div class="card flex-fill">
+                                    <div class="card-header">
+                                        <strong>Work Time </strong>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-primary">{{ task3.work_time|time:"H:i:s" }}</h5>
+                                        <p class="card-text">Monitor your productivity during your focused work sessions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3 d-flex">
+                                <div class="card flex-fill">
+                                    <div class="card-header">
+                                       <b> Break Time </b>
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title text-success">{{ task3.break_time|time:"H:i:s" }}</h5>
+                                        <p class="card-text">Keep track of your break times to stay refreshed and efficient.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md- mb-3 d-flex">
+                                <div class="card flex-fill">
+                                    <div class="card-header">
+                                       <b> Break Hours </b>
+                                    </div>
+                                    <div class="card-body">
+                                        {% for x in task2 %}
+                                            <h5 class="card-title text-warning">{{ x.Break_in|time:"H:i:s" }}-{{ x.Break_out|time:"H:i:s" }}</h5>
+                                        {%endfor%}
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+ -->
+ 
